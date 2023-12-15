@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+interface ChainType {
+  id: number;
+  meta: any;
+};
+
 export default function App({ children, count: initialCount }) {
   const [count, setCount] = useState(initialCount);
-  const [meta, setMeta] = useState();
+  const [meta, setMeta] = useState<ChainType>();
   const add = () => setCount((i) => i + 1);
   const subtract = () => {
       setCount((i) => i > 0 ? i - 1 : i);
@@ -16,7 +21,7 @@ export default function App({ children, count: initialCount }) {
       );
       const json = await response.json()
       console.log(json)
-      setMeta(json.meta.name)
+      setMeta(json)
     }
   
     // call the function
@@ -25,15 +30,21 @@ export default function App({ children, count: initialCount }) {
       .catch(console.error);
   }, [count])
 
+
   return (
     <>
-      <div className="counter">
-        <button onClick={subtract}>-</button>
-        <pre>{count}</pre>
-        <pre>{meta}</pre>
-        <button onClick={add}>+</button>
-      </div>
       <div className="counter-message">{children}</div>
+      <div className="counter">
+        <button onClick={add}>👉</button>
+        <button onClick={subtract}>-</button>
+    {meta ? (
+    <>
+    <h2>🦄 {Object.entries(meta)[1][1].id}</h2>
+    <h2>{Object.entries(meta)[1][1].name}</h2>
+    <h2> {JSON.stringify(Object.entries(meta)[1][1].nativeCurrency, null, 2)}</h2>
+    </> )
+    : <h1>no data</h1>}
+    </div>
     </>
   );
 }
