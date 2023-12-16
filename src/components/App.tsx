@@ -17,13 +17,12 @@ export default function App({ children, count: initialCount }) {
     // declare the data fetching function
     const fetchData = async () => {
       const response = await fetch(
-        `https://example-steel-ten.vercel.app/api/v1/chainlist/${count}`
+        `https://chainlist-api.muzamint.com/api/v1/chainlist/${count}`
       );
       const json = await response.json()
       console.log(json)
       setMeta(json)
     }
-  
     // call the function
     fetchData()
       // make sure to catch any error
@@ -37,6 +36,7 @@ export default function App({ children, count: initialCount }) {
       <div className="counter">
         <button onClick={add}>👉</button>
         <button onClick={subtract}>-</button>
+      <h2>{count}</h2>  
     {meta ? (
     <>
     <h2>🦄 {Object.entries(meta)[1][1].id}</h2>
