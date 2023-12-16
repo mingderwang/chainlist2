@@ -1,7 +1,7 @@
 {
   "name": "chainlist2",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -19,6 +19,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-json-pretty": "^2.2.0",
+    "react-rxjs-elements": "^0.0.7",
+    "rxjs": "^7.8.1",
     "typescript": "^5.3.3"
   }
 }
