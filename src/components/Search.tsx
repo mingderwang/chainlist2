@@ -12,14 +12,16 @@ import { timer } from 'rxjs';
   
 export default function Search
   ({ children, count: initialCount }){
-    const [name, setName] = useState();
+    const [name, setName] = useState('999');
 
   // we need useMemo to ensure stream$ persist
   // between App re-renders
   const stream$ = useMemo(() =>
   fromFetch(`https://chainlist-api.muzamint.com/api/v1/chainlist/search/${name}`)
       .pipe(
-        mergeMap(response => response.json().then(x => x.map((x:any) => ("👉" + x.meta.name))).catch(e => console.error(e))),
+        mergeMap(response => response.json().then(x => x.map((x:any) => (<p>👉 {x.meta.name}  ⚡ ID: {x.meta.id}
+          <a href={`${x.meta.blockExplorers.default.url}`}>   📡 {`${x.meta.blockExplorers.default.url}`}</a>
+        </p> ))).catch(e => console.error(e))),
         catchError(() => of('ERROR')),
         startWith('loading...')
       )
@@ -43,7 +45,7 @@ export default function Search
 
   <div className="counter-message">{children}</div>
 
-  <div>Data: <$>{ stream$ }</$></div>
+  <div>Chains: <$>{ stream$ }</$></div>
   
   </>
 }
