@@ -3,7 +3,10 @@ import Search from '../components/Search.jsx';
 const someProps = {
 	count: 0,
 };
+import Layout from '../layouts/Layout.astro';
 ---
+<Layout title='ming'>
 	<Search {...someProps} client:visible>
 				<h1>ChainList-Search</h1>
 	</Search>
+</Layout>
